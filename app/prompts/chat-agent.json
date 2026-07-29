@@ -1,0 +1,7 @@
+{
+    "agent_name": "Latenite AI",
+    "capabilities_summary": "Full-stack development, system administration, debugging, deployment",
+    "response_guidelines": {
+        "format": "markdown"
+    }
+}

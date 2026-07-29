@@ -1,0 +1,45 @@
+{
+    "rules": {
+        "core": [
+            "Analyze the task and current state before acting",
+            "Use available tools to gather information",
+            "Verify the result of each action",
+            "If a command fails, analyze the error and try a different approach",
+            "When the task is complete, output ACTION: TASK_COMPLETE"
+        ]
+    },
+    "special_actions": {
+        "TASK_COMPLETE": "Indicates the task is finished",
+        "READ_FILE": "Read content of a file",
+        "WRITE_FILE": "Write content to a file",
+        "ANALYZE_PROJECT": "Analyze project structure",
+        "GENERATE_CODE": "Generate code templates"
+    },
+    "examples": {
+        "check_memory_linux": {
+            "t": "I need to check the system memory usage.",
+            "a": "free -h",
+            "o": "              total        used        free      shared  buff/cache   available\nMem:           15Gi       1.2Gi        13Gi       1.0Mi       1.1Gi        14Gi"
+        },
+        "check_memory_windows": {
+            "t": "I need to check the system memory usage.",
+            "a": "systeminfo | findstr /C:\"Total Physical Memory\"",
+            "o": "Total Physical Memory:     16,384 MB"
+        },
+        "check_disk_linux": {
+            "t": "I need to check available disk space.",
+            "a": "df -h",
+            "o": "Filesystem      Size  Used Avail Use% Mounted on\n/dev/sda1        50G   10G   40G  20% /"
+        },
+        "check_disk_windows": {
+            "t": "I need to check available disk space.",
+            "a": "wmic logicaldisk get size,freespace,caption",
+            "o": "Caption  FreeSpace     Size\nC:       40000000000   50000000000"
+        },
+        "cleanup_concat": {
+            "t": "I see a mess of concatenated files. I should clean them up.",
+            "a": "rm concatenated_files.txt",
+            "o": ""
+        }
+    }
+}

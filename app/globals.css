@@ -1,0 +1,256 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom minimal scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(156, 163, 175, 0.3) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: rgba(156, 163, 175, 0.3);
+  border-radius: 2px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(156, 163, 175, 0.5);
+}
+
+*::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* For dark themed scrollbars */
+.dark *::-webkit-scrollbar-thumb {
+  background: rgba(75, 85, 99, 0.4);
+}
+
+.dark *::-webkit-scrollbar-thumb:hover {
+  background: rgba(75, 85, 99, 0.6);
+}
+
+/* Keyboard focus indicators for accessibility */
+button:focus-visible,
+a:focus-visible,
+textarea:focus-visible,
+input:focus-visible {
+  outline: 2px solid #FF6B35;
+  outline-offset: 2px;
+}
+
+.focus-ring {
+  @apply focus:outline-none focus:ring-2 focus:ring-primary-orange focus:ring-offset-2 focus:ring-offset-gray-900;
+}
+
+@layer base {
+  body {
+    background-color: #0a0a0a;
+    color: #ffffff;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    zoom: 0.67;  /* Global scale to match perfect 67% zoom appearance */
+  }
+}
+
+/* XTerm.js terminal styling fixes - Full viewport coverage with proper scrolling */
+.xterm-container {
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+  overflow: hidden !important;
+  position: relative !important;
+}
+
+.xterm-terminal {
+  font-family: 'Cascadia Code', 'Fira Code', 'SF Mono', Monaco, Inconsolata, 'Roboto Mono', Consolas, monospace !important;
+  line-height: 1.15 !important;
+  letter-spacing: 0.5px !important;
+  width: 100% !important;
+  height: 100% !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+}
+
+.xterm-terminal .xterm-screen {
+  width: 100% !important;
+  height: 100% !important;
+  position: relative !important; /* FIXED: Changed from absolute to relative for proper scrolling */
+}
+
+.xterm-terminal .xterm-viewport {
+  background-color: #0a0a0a !important;
+  overflow-y: scroll !important; /* FIXED: Changed from auto to scroll to always show scrollbar */
+  width: 100% !important;
+  height: 100% !important;
+  scrollbar-width: thin !important; /* Firefox scrollbar */
+  scrollbar-color: #4a5568 #1a1a1a !important; /* Firefox scrollbar colors */
+}
+
+/* Ensure XTerm viewport scrollbar is visible and functional */
+.xterm-terminal .xterm-viewport::-webkit-scrollbar {
+  width: 12px !important;
+}
+
+.xterm-terminal .xterm-viewport::-webkit-scrollbar-track {
+  background: #1a1a1a !important;
+}
+
+.xterm-terminal .xterm-viewport::-webkit-scrollbar-thumb {
+  background: #4a5568 !important;
+  border-radius: 6px !important;
+  border: 2px solid #1a1a1a !important;
+}
+
+.xterm-terminal .xterm-viewport::-webkit-scrollbar-thumb:hover {
+  background: #718096 !important;
+}
+
+.xterm-terminal .xterm-rows {
+  font-feature-settings: "liga" 0 !important;
+}
+
+/* Fix for terminal sizing and scrolling */
+.xterm-terminal canvas {
+  display: block !important;
+}
+
+.xterm-terminal .xterm-helper-textarea {
+  position: absolute !important;
+  opacity: 0 !important;
+  left: -9999px !important;
+  z-index: -1000 !important;
+}
+
+/* Custom terminal scrollbar */
+.terminal-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.terminal-scrollbar::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+.terminal-scrollbar::-webkit-scrollbar-thumb {
+  background: #4a5568;
+  border-radius: 4px;
+}
+
+.terminal-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #718096;
+}
+
+/* Terminal input glow effect */
+.terminal-input-glow:focus-within {
+  box-shadow: 0 0 0 2px rgba(6, 182, 212, 0.3);
+  border-color: rgba(6, 182, 212, 0.5);
+}
+
+/* Improve terminal line spacing and readability */
+.terminal-line {
+  min-height: 1.2em;
+  display: flex;
+  align-items: flex-start;
+}
+
+@layer components {
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary-orange to-red-400 bg-clip-text text-transparent;
+  }
+  
+  .terminal-window {
+    background: linear-gradient(135deg, #1e1e1e 0%, #2a2a2a 100%);
+    border: 1px solid #333;
+    border-radius: 8px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+  }
+
+  .terminal-window:hover {
+    border: 1px solid #FF6B35;
+    box-shadow: 0 25px 50px rgba(255, 107, 53, 0.1);
+  }
+  
+  .terminal-header {
+    background: #333;
+    padding: 8px 16px;
+    border-radius: 8px 8px 0 0;
+    border-bottom: 1px solid #444;
+  }
+  
+  .terminal-content {
+    padding: 16px;
+    font-family: 'Fira Code', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  
+  .typing-effect {
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 2px solid #FF6B35;
+    animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+  }
+  
+  /* Enhanced terminal scrollbar styling */
+  .terminal-scrollbar::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .terminal-scrollbar::-webkit-scrollbar-track {
+    background: rgba(31, 41, 55, 0.5);
+    border-radius: 4px;
+  }
+  
+  .terminal-scrollbar::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #06b6d4 0%, #3b82f6 100%);
+    border-radius: 4px;
+    border: 1px solid rgba(6, 182, 212, 0.3);
+  }
+  
+  .terminal-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #0891b2 0%, #2563eb 100%);
+    box-shadow: 0 0 8px rgba(6, 182, 212, 0.4);
+  }
+  
+  /* Terminal line animations */
+  .terminal-line {
+    animation: fadeInLine 0.3s ease-out;
+  }
+  
+  @keyframes fadeInLine {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Terminal input styling without glow */
+  .terminal-input-glow {
+    border: 1px solid rgba(6, 182, 212, 0.3);
+    background: rgba(17, 24, 39, 0.8);
+  }
+  
+  .terminal-input-glow:focus-within {
+    border: 1px solid rgba(6, 182, 212, 0.6);
+    background: rgba(17, 24, 39, 0.9);
+  }
+}
+
+/* KaTeX math rendering support */
+@import 'katex/dist/katex.min.css'; 
